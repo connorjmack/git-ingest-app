@@ -23,7 +23,7 @@ class IngestApp(ctk.CTk):
         # Determine the base path (handle both script and PyInstaller .app execution)
         if getattr(sys, 'frozen', False):
             # If running as a compiled app, default to Documents to avoid permission issues
-            base_path = os.path.join(os.path.expanduser("~"), "Documents", "GitIngest_Output")
+            base_path = os.path.join(os.path.expanduser("~"), "Documents", "GitHub", "git-ingest-output")
         else:
             # If running as a script, default to 'txt_files' inside the repo folder
             base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "txt_files")
