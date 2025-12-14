@@ -1,0 +1,18 @@
+# Mac OS system files
+.DS_Store
+
+# Python cache and environments
+__pycache__/
+*.py[cod]
+.venv/
+env/
+venv/
+
+# PyInstaller build folders (DO NOT UPLOAD THESE)
+build/
+dist/
+*.spec
+
+# User specific settings
+.vscode/
+.idea/
