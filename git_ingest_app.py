@@ -2,6 +2,7 @@ import customtkinter as ctk
 import gitingest
 import asyncio
 import threading
+import multiprocessing  # <- ADDED THIS
 import os
 import sys
 from datetime import datetime
@@ -199,5 +200,6 @@ class IngestApp(ctk.CTk):
             self.after(0, lambda: self.change_dir_btn.configure(state="normal"))
 
 if __name__ == "__main__":
+    multiprocessing.freeze_support()  # <- ADDED THIS
     app = IngestApp()
     app.mainloop()
