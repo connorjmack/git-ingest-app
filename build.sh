@@ -6,16 +6,18 @@ rm -rf dist build *.spec
 
 # --- Build the application ---
 echo "Starting PyInstaller build in ONEDIR mode (Recommended for macOS)..."
-# We use the full python path from the active virtual environment to ensure isolation
+# ADDED --collect-all flags to fix launch crashes
 /usr/bin/env python -m PyInstaller --name "GitIngest" \
     --windowed \
     --onedir \
     --noconsole \
     --distpath /Applications \
-    ingest_app.py
+    --additional-hooks-dir=hooks \
+    --collect-all gitingest \
+    --collect-all customtkinter \
+    git_ingest_app.py
 
 # --- Verify and provide instructions ---
-# Check for a directory (folder) since onedir creates a folder structure
 if [ -d /Applications/GitIngest.app ]; then
     echo " "
     echo "========================================================"
