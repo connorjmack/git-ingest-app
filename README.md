@@ -14,16 +14,36 @@ This tool allows you to paste a GitHub repository URL and locally generate a sin
 
 ## Installation
 
-1.  **Clone the repository:**
-    ```bash
-    git clone [https://github.com/yourusername/gitingest-gui.git](https://github.com/yourusername/gitingest-gui.git)
-    cd gitingest-gui
-    ```
+### Option 1: Using conda (Recommended)
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/gitingest-gui.git
+cd gitingest-gui
 
-2.  **Install dependencies:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+# Create environment from environment.yml
+conda env create -f environment.yml
+conda activate gitingest-app
+
+# Run the app
+python git_ingest_app.py
+```
+
+### Option 2: Using venv + pip
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/gitingest-gui.git
+cd gitingest-gui
+
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the app
+python git_ingest_app.py
+```
 
 ## Usage
 
