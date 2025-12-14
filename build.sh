@@ -11,6 +11,7 @@ echo "Starting PyInstaller build in ONEFILE mode..."
     --distpath /Applications \
     --collect-all gitingest \
     --collect-all customtkinter \
+    --icon logo.icns \  # <-- UPDATED: Points to the ICNS file
     git_ingest_app.py
 
 if [ -f /Applications/GitIngest.app/Contents/MacOS/GitIngest ]; then

@@ -2,10 +2,11 @@ import customtkinter as ctk
 import gitingest
 import asyncio
 import threading
-import multiprocessing  # <- ADDED THIS
+import multiprocessing
 import os
 import sys
 from datetime import datetime
+from PIL import Image # <-- ADD THIS IMPORT (Pillow required)
 
 # Configure appearance
 ctk.set_appearance_mode("Dark")
@@ -16,8 +17,29 @@ class IngestApp(ctk.CTk):
         super().__init__()
 
         self.title("GitIngest Pro")
-        self.geometry("600x600") # Increased height for new UI elements
+        self.geometry("600x600")
         self.resizable(False, False)
+
+        # Set the icon when running as a script (uses the PNG)
+        try:
+            # Tkinter's iconbitmap works well on Windows/Linux. On macOS script run, 
+            # it might set the icon for the main window but not the Dock icon.
+            icon_path_png = os.path.join(os.path.dirname(__file__), "logo.png")
+            if os.path.exists(icon_path_png):
+                # Load the image using Pillow and CustomTkinter's compatible format
+                img = Image.open(icon_path_png)
+                photo = ctk.CTkImage(light_image=img, size=(img.width, img.height))
+                
+                # Use Tkinter method to set the window icon (for non-compiled runs)
+                # You might need to save a temporary .ico file on Windows, but 
+                # a direct file path is best practice here for basic testing.
+                if sys.platform.startswith('win'):
+                     self.iconbitmap("logo.ico") # Windows requires .ico
+                elif sys.platform.startswith('linux'):
+                     self.iconphoto(True, photo) # Linux method
+                # On macOS, the compiled .app handles the icon.
+        except Exception as e:
+            print(f"Icon loading error: {e}")
 
         # --- PATH SETUP ---
         # Determine the base path (handle both script and PyInstaller .app execution)
