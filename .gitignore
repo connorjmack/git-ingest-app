@@ -41,6 +41,11 @@ dist/
 *.swp
 *.swo
 
+# Pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
 # macOS
 .DS_Store
 

@@ -1,14 +1,16 @@
-import customtkinter as ctk
-import gitingest
 import asyncio
-import threading
 import multiprocessing
 import os
-import sys
 import subprocess
 import platform
+import sys
+import threading
 from datetime import datetime
+
+import customtkinter as ctk
+import gitingest
 from PIL import Image
+from app_utils import default_output_dir, ensure_directory
 
 # Configure appearance
 ctk.set_appearance_mode("Dark")
@@ -83,12 +85,9 @@ class IngestApp(ctk.CTk):
             print(f"Icon loading error: {e}")
 
         # --- PATH SETUP ---
-        if getattr(sys, 'frozen', False):
-            base_path = os.path.join(os.path.expanduser("~"), "Documents", "GitHub", "git-ingest-output")
-        else:
-            base_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "txt_files")
-
-        self.output_dir = base_path
+        base_reference = __file__ if "__file__" in globals() else sys.executable
+        base_path = default_output_dir(base_reference, frozen=getattr(sys, "frozen", False))
+        self.output_dir = str(base_path)
         self.ensure_directory_exists(self.output_dir)
 
         # --- UI LAYOUT ---
@@ -168,11 +167,10 @@ class IngestApp(ctk.CTk):
         self.current_full_path = None
 
     def ensure_directory_exists(self, path):
-        if not os.path.exists(path):
-            try:
-                os.makedirs(path)
-            except Exception as e:
-                self.log_status(f"Error creating directory: {e}", "red")
+        try:
+            ensure_directory(path)
+        except Exception as e:
+            self.log_status(f"Error creating directory: {e}", "red")
 
     def change_directory(self):
         new_dir = ctk.filedialog.askdirectory(initialdir=self.output_dir, title="Select Output Folder")

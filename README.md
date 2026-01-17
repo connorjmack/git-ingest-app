@@ -75,3 +75,15 @@ If you wish to create a self-contained `.app` bundle for macOS, you can use the 
 ```bash
 # Run the build script
 ./build.sh
+```
+
+## 🧪 Testing
+
+Install dev dependencies, then run pytest (coverage optional):
+
+```bash
+pip install -r requirements-dev.txt
+pytest --cov=app_utils --cov=git_ingest_app
+```
+
+Use `-m "not gui"` if you add GUI tests and need to skip display-bound cases in headless environments.
